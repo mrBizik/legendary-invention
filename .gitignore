@@ -1,0 +1,7 @@
+node_modules
+*.log
+*.err
+*.code-workspace
+./cscode
+coverage
+dist
