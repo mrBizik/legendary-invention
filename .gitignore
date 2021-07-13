@@ -2,6 +2,6 @@ node_modules
 *.log
 *.err
 *.code-workspace
-./cscode
+./vscode
 coverage
 dist
