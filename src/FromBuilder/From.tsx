@@ -16,7 +16,6 @@ export const From: React.FC<FromProps> = function (props) {
     const p: { type: keyof FiledComponents } = props;
     if (components[p.type]) {
       const Component = components[p.type];
-      console.log(props)
       fields.push((<Component {...props} key={p.type} />));
     }
   }
