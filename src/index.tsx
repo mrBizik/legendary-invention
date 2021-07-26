@@ -1,4 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import fields from './fields';
 
-ReactDOM.render(<div>Hello</div>, document.getElementById('root'));
+const From: React.FC = ({ children }) => (<form>{children}</form>);
+
+ReactDOM.render(<From>Hello</From>, document.getElementById('root'));

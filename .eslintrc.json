@@ -6,7 +6,7 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb-base",
+        "airbnb",
         "plugin:react-hooks/recommended"
     ],
     "parser": "@typescript-eslint/parser",
@@ -19,8 +19,23 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "import"
     ],
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [
+                ".ts",
+                ".tsx"
+            ]
+        },
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true,
+                "project": "tsconfig.json"
+            }
+        }
+    },
     "rules": {
         "react/jsx-filename-extension": [
             1,
@@ -31,8 +46,12 @@
                 ]
             }
         ],
-        "@typescript-eslint/semi": ["error"],
+        "@typescript-eslint/semi": "error",
         "semi": "off",
-        "indent": ["error", 4]
+        "indent": [
+            "error",
+            2
+        ],
+        "import/extensions": [{"tsx": "never"}, {"ts": "never"}]
     }
 }

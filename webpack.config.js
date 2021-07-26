@@ -1,21 +1,21 @@
 module.exports = () => {
-    const modules = {
-        js: {
-            test: /\.ts(x?)$/,
-            exclude: /node_modules/,
-            use: [
-                {
-                    loader: 'ts-loader',
-                },
-            ],
+  const modules = {
+    js: {
+      test: /\.ts(x?)$/,
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: 'ts-loader',
         },
-    };
-    const resolve = {
-        extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    };
+      ],
+    },
+  };
+  const resolve = {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  };
 
-    return {
-        modules,
-        resolve,
-    };
+  return {
+    modules,
+    resolve,
+  };
 }
