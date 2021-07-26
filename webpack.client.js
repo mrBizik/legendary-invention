@@ -1,13 +1,14 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const webpackConfig = require('./webpack.config')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpackConfig = require('./webpack.config');
 
 module.exports = (env, argv) => {
-    const watchMode = argv.liveReload || false
-    const modeEnv = argv.mode || 'development'
-    const isProd = modeEnv === 'production'
-    const config = webpackConfig(modeEnv)
+    const watchMode = argv.liveReload || false;
+    const modeEnv = argv.mode || 'development';
+    const isProd = modeEnv === 'production';
+    const config = webpackConfig(modeEnv);
 
     const optimizations = {
         splitChunks: {
@@ -21,15 +22,15 @@ module.exports = (env, argv) => {
             },
         },
         minimizer: [],
-    }
+    };
 
     if (isProd) {
-        optimizations.minimizer.push(new UglifyJsPlugin())
+        optimizations.minimizer.push(new UglifyJsPlugin());
     }
 
     return {
         devServer: {
-            contentBase: path.join(__dirname, "dist"),
+            contentBase: path.join(__dirname, 'dist'),
             compress: true,
             port: 4200,
             watchContentBase: true,
@@ -62,5 +63,5 @@ module.exports = (env, argv) => {
             hints: false,
         },
         optimization: optimizations,
-    }
-}
+    };
+};
