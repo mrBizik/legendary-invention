@@ -1,25 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import fields, { FieldName } from './fields';
+import { FormBuilder, FieldSchemaElement, FieldProps } from './form/FormBuilder';
 
-type Full<T> = {
-  [P in keyof T]-?: T[P];
-}
-
-interface FieldConfig<T = unknown> {
-  type: FieldName,
-  config: T,
-}
-
-interface FormProps {
-  fields: FieldConfig[],
-}
-
-interface FormFieldsState {
-  [fieldKey: string]: unknown;
-}
-
-const testFields: FieldConfig[] = [
+const testFields: FieldSchemaElement<FieldName>[] = [
   {
     type: "CheckBox",
     config: {
@@ -30,35 +14,9 @@ const testFields: FieldConfig[] = [
   },
 ];
 
-const From: React.FC<FormProps> = ({ fields: fieldsConfig }) => {
-  const [fieldValues, setFieldValues] = useState<FormFieldsState>({});
-  const formFields = [];
-  for (const { type, config } of fieldsConfig) {
-    if (fields[type]) {
-      const Field = fields[type];
-      const { value: defaultValue, ...otherConf } = config as Full<typeof Field['defaultProps']>;
-      const changeFieldValue: typeof Field['defaultProps']['onChange'] = (name, value) => {
-        fieldValues[name] = value;
-        console.log(fieldValues)
-        setFieldValues({ ...fieldValues });
-      }
-
-      const { name } = otherConf;
-      if (fieldValues[name] === undefined) {
-        fieldValues[name] = defaultValue;
-        setFieldValues({ ...fieldValues });
-      }
-
-      const fieldConfig = {
-        ...otherConf,
-        value: fieldValues[name] as typeof Field['defaultProps']['value'],
-        onChange: changeFieldValue,
-        key: name,
-      };
-      formFields.push(<Field {...fieldConfig} />);
-    }
-  }
-  return (<form>{formFields}</form>)
+const fieldGetter = (type: unknown) => {
+  const concreteType = type as FieldName;
+  return fields[concreteType] as React.FC<FieldProps>;
 };
 
-ReactDOM.render(<From fields={testFields} />, document.getElementById('root'));
+ReactDOM.render(<FormBuilder fieldsShema={testFields} getComponent={fieldGetter} />, document.getElementById('root'));

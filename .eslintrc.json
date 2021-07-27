@@ -50,7 +50,7 @@
         "semi": "off",
         "indent": [
             "error",
-            2
+            1
         ],
         "import/extensions": [{"tsx": "never"}, {"ts": "never"}]
     }
