@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldProps } from './Props';
+import { FieldProps } from '../form/Field';
 
 export const Text: React.FC<FieldProps<string>> = ({ name, value, onChange, label }) => {
   const changeField = ({ currentTarget }: React.FormEvent<HTMLInputElement>) => onChange(name, currentTarget.value);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldProps } from './Props';
+import { FieldProps } from '../form/Field';
 
 export const CheckBox: React.FC<FieldProps<boolean>> = ({ name, value, onChange, label }) => {
   const changeField = () => { onChange(name, !!!value) };

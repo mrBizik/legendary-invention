@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import fields, { FieldName, FieldValue } from './fields';
+import fields from './fields';
+import { FieldName, FieldValue } from './form/Field';
 import { FormBuilder, FieldSchemaElement, FieldProps, FieldConfig } from './form/FormBuilder';
 
-const testFields: FieldSchemaElement<FieldName, FieldConfig<FieldValue>>[] = [
+type Fields = typeof fields;
+
+const testFields: FieldSchemaElement<FieldName, FieldConfig<FieldValue<Fields>>>[] = [
   {
     type: "CheckBox",
     config: {
@@ -14,7 +17,7 @@ const testFields: FieldSchemaElement<FieldName, FieldConfig<FieldValue>>[] = [
   },
 ];
 
-const fieldGetter = (type: FieldName) => {
+const fieldGetter = (type: FieldName<Fields>) => {
   if (!fields[type]) {
     throw Error(`Field type ${type} not found into fields config`);
   }
