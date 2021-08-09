@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fields from './fields';
-import { FieldName, FieldValue } from './form/Field';
-import { FormBuilder, FieldSchemaElement, FieldProps, FieldConfig } from './form/FormBuilder';
+import { FieldName, FieldValue, FieldProps, FieldConfig } from './form/Field';
+import { FormBuilder } from './form/FormBuilder';
+import { FormSchema } from './form/FormSchema';
 
 type Fields = typeof fields;
 
-const testFields: FieldSchemaElement<FieldName, FieldConfig<FieldValue<Fields>>>[] = [
+const testFields: FormSchema<FieldName, FieldConfig<FieldValue<Fields>>> = [
   {
     type: "CheckBox",
     config: {

@@ -1,11 +1,14 @@
 import React from "react";
 
-export interface FieldProps<T = unknown> {
+export interface FieldConfig<T = unknown> {
   label?: string;
   name: string;
-  onChange: (key: string, val: T) => void;
   value?: T;
 }
+
+export type FieldProps<T = unknown> =  FieldConfig<T> & {
+  onChange: (key: string, val: T) => void,
+};
 
 export interface FieldMap<T = unknown> { 
   [key: string]: React.FC<FieldProps<T>> 

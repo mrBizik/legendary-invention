@@ -1,24 +1,11 @@
 import React, { useState } from 'react';
-
-export interface FieldConfig<T = unknown> {
-  name: string;
-  label?: string;
-  value: T;
-}
-
-export interface FieldSchemaElement<T = string, C extends FieldConfig = FieldConfig<unknown>> {
-  type: T,
-  config: C,
-}
-
-export interface FieldProps<T = unknown> extends FieldConfig<T> {
-  onChange(name: string, value?: T): void;
-}
+import { FieldProps } from './Field';
+import { FormSchema } from './FormSchema';
 
 export type ComponentGetter<T = string> = (type: T) => React.FC<FieldProps>;
 
 interface FormBuilderProps {
-  fieldsShema: FieldSchemaElement[],
+  fieldsShema: FormSchema,
   getComponent: ComponentGetter,
 }
 
