@@ -1,4 +1,4 @@
-import { FieldConfig, FieldMap, FieldName, FieldValue } from "./field";
+import { FieldConfig, FieldMap, FieldName, FieldValue } from "./field.description";
 
 interface FieldSchema<FM extends FieldMap = FieldMap>
 {

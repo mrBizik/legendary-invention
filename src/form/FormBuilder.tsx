@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { FieldMap, FieldName, FieldProps, FieldValue } from './field';
+import { FieldMap, FieldName, FieldProps, FieldValue } from './field.description';
 import { FormSchema } from './form.schema';
-
-export type ComponentGetter<FM extends FieldMap = FieldMap> = (type: FieldName<FM>) => React.FC<FieldProps<FieldValue<FM>>>;
 
 interface FormBuilderProps<FM extends FieldMap = FieldMap> {
   fieldsShema: FormSchema<FM>,
@@ -13,6 +11,8 @@ interface FormFieldsState {
   [fieldKey: string]: unknown;
 }
 
+export type ComponentGetter<FM extends FieldMap = FieldMap> = (type: FieldName<FM>) => React.FC<FieldProps<FieldValue<FM>>>;
+
 export function createFormBuilder<FM extends FieldMap = FieldMap>(): React.FC<FormBuilderProps<FM>> {
   return ({ fieldsShema, getComponent }) => {
     const [fieldValues, setFieldValues] = useState<FormFieldsState>({});
@@ -21,7 +21,7 @@ export function createFormBuilder<FM extends FieldMap = FieldMap>(): React.FC<Fo
       setFieldValues({ ...fieldValues });
       console.log(fieldValues);
     }
-  
+
     const fields = [];
     for (const { type, config: { name, value: defaultValue, ...other } } of fieldsShema) {
       const Field = getComponent(type);
@@ -35,4 +35,3 @@ export function createFormBuilder<FM extends FieldMap = FieldMap>(): React.FC<Fo
     return (<form>{fields}</form>);
   }
 };
-
