@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import fields from './fields';
 import { ComponentGetter, createFormBuilder } from './form/FormBuilder';
-import { FormSchema } from './form/FormSchema';
+import { FormSchema } from './form/form.schema';
 
 type Fields = typeof fields;
 
