@@ -1,9 +1,9 @@
-import { FieldConfig } from "./Field";
+import { FieldConfig, FieldMap, FieldName, FieldValue } from "./Field";
 
-interface FieldSchema<T = string, C extends FieldConfig = FieldConfig>
+interface FieldSchema<FM extends FieldMap = FieldMap>
 {
-  type: string;
-  config: FieldConfig;
+  type: FieldName<FM>;
+  config: FieldConfig<FieldValue<FM>>;
 }
 
-export type FormSchema<T = string, C extends FieldConfig = FieldConfig> = FieldSchema<T, C>[];
+export type FormSchema<FM extends FieldMap = FieldMap> = FieldSchema<FM>[];

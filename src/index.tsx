@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fields from './fields';
-import { FieldName, FieldValue, FieldProps, FieldConfig } from './form/Field';
-import { FormBuilder } from './form/FormBuilder';
+import { ComponentGetter, createFormBuilder } from './form/FormBuilder';
 import { FormSchema } from './form/FormSchema';
 
 type Fields = typeof fields;
 
-const testFields: FormSchema<FieldName, FieldConfig<FieldValue<Fields>>> = [
+const testFields: FormSchema<Fields> = [
   {
     type: "CheckBox",
     config: {
@@ -18,12 +17,13 @@ const testFields: FormSchema<FieldName, FieldConfig<FieldValue<Fields>>> = [
   },
 ];
 
-const fieldGetter = (type: FieldName<Fields>) => {
+const fieldGetter: ComponentGetter<Fields> = (type) => {
   if (!fields[type]) {
     throw Error(`Field type ${type} not found into fields config`);
   }
 
-  return fields[type] as React.FC<FieldProps>;
+  return fields[type];
 };
 
+const FormBuilder = createFormBuilder<Fields>();
 ReactDOM.render(<FormBuilder fieldsShema={testFields} getComponent={fieldGetter} />, document.getElementById('root'));
