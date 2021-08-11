@@ -14,5 +14,9 @@ export interface FieldMap<T = unknown> {
   [key: string]: React.FC<FieldProps<T>>;
 }
 
-export type FieldValue<FMap extends FieldMap = FieldMap> =
+type FieldValue<FMap extends FieldMap = FieldMap> =
   FMap[keyof FMap]["defaultProps"]["value"];
+
+export type FieldComponent<FMap extends FieldMap = FieldMap> = React.FC<
+  FieldProps<FieldValue<FMap>>
+>;
