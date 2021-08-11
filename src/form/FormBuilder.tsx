@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { FieldMap, FieldName, FieldProps, FieldValue } from "./field";
+import { FieldMap, FieldProps, FieldValue } from "./field";
 import { FormSchema } from "./form.schema";
 
 export type ComponentGetter<FM extends FieldMap = FieldMap> = (
-  type: FieldName<FM>
+  type: keyof FM
 ) => React.FC<FieldProps<FieldValue<FM>>>;
 
 interface FormBuilderProps<FM extends FieldMap = FieldMap> {

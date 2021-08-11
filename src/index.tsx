@@ -15,6 +15,14 @@ const testFields: FormSchema<Fields> = [
       value: false,
     },
   },
+  {
+    type: "Text",
+    config: {
+      label: 'Field 2',
+      name: 'text 1',
+      value: 'false',
+    }
+  },
 ];
 
 const fieldGetter: ComponentGetter<Fields> = (type) => {
