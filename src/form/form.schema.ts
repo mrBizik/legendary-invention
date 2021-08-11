@@ -1,7 +1,6 @@
 import { FieldConfig, FieldMap, FieldName, FieldValue } from "./field";
 
-interface FieldSchema<FM extends FieldMap = FieldMap>
-{
+interface FieldSchema<FM extends FieldMap = FieldMap> {
   type: FieldName<FM>;
   config: FieldConfig<FieldValue<FM>>;
 }
