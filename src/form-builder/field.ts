@@ -1,5 +1,4 @@
 import React, { ButtonHTMLAttributes } from 'react';
-import { RefCallBack } from 'react-hook-form';
 
 export interface FieldConfig<V = unknown> {
   label?: string;
@@ -9,7 +8,6 @@ export interface FieldConfig<V = unknown> {
 
 export type FieldProps<V> = FieldConfig<V> & {
   onChange: (...event: any[]) => void;
-  ref: RefCallBack;
 };
 
 export interface FieldMap<V = unknown> {
