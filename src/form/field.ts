@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import { RefCallBack } from 'react-hook-form';
 
 export interface FieldConfig<V = unknown> {
@@ -22,3 +22,8 @@ type FieldValue<FMap extends FieldMap> =
 export type FieldComponent<FMap extends FieldMap> = React.FC<
   FieldProps<FieldValue<FMap>>
 >;
+
+export type ButtonConfig = {
+  type: ButtonHTMLAttributes<void>['type'];
+  label?: string;
+};

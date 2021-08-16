@@ -6,24 +6,32 @@ import { FormSchema } from './form/form.schema';
 
 type Fields = typeof fields;
 
-const testFields: FormSchema<Fields> = [
-  {
-    type: 'CheckBox',
-    config: {
-      label: 'Field 1',
-      name: 'check1',
-      value: false,
+const testFields: FormSchema<Fields> = {
+  buttons: [
+    {
+      type: 'submit',
+      label: 'Send label',
     },
-  },
-  {
-    type: 'Text',
-    config: {
-      label: 'Field 2',
-      name: 'text 1',
-      value: 'false',
+  ],
+  fields: [
+    {
+      type: 'CheckBox',
+      config: {
+        label: 'Field 1',
+        name: 'check1',
+        value: false,
+      },
     },
-  },
-];
+    {
+      type: 'Text',
+      config: {
+        label: 'Field 2',
+        name: 'text 1',
+        value: 'false',
+      },
+    },
+  ],
+};
 
 const FormBuilder = createFormBuilder<Fields>();
 ReactDOM.render(

@@ -1,4 +1,4 @@
-import { FieldConfig, FieldMap } from './field';
+import { ButtonConfig, FieldConfig, FieldMap } from './field';
 
 type FieldMapSchema<FM extends FieldMap> = {
   [type in keyof FM]: {
@@ -10,4 +10,7 @@ type FieldMapSchema<FM extends FieldMap> = {
 export type FieldSchema<FM extends FieldMap> =
   FieldMapSchema<FM>[keyof FieldMapSchema<FM>];
 
-export type FormSchema<FM extends FieldMap> = FieldSchema<FM>[];
+export type FormSchema<FM extends FieldMap> = {
+  fields: FieldSchema<FM>[];
+  buttons: ButtonConfig[];
+};

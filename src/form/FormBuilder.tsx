@@ -26,19 +26,19 @@ function getFileldComponent<FM extends FieldMap>(
 export function createFormBuilder<FM extends FieldMap>(): React.FC<
   FormBuilderProps<FM>
 > {
-  return ({ fieldsShema, fieldComponents }) => {
+  return ({ fieldsShema: { fields, buttons }, fieldComponents }) => {
     const { control, handleSubmit } = useForm<FormFieldsState>();
 
     const onSubmit: SubmitHandler<FormFieldsState> = (data) => {
       console.log(data);
     };
-    const fields = [];
+    const formFields = [];
     for (const {
       type,
       config: { name, value: defaultValue, ...other },
-    } of fieldsShema) {
+    } of fields) {
       const Field = getFileldComponent(type, fieldComponents);
-      fields.push(
+      formFields.push(
         <Controller
           name={name}
           key={`${name}.${type}`}
@@ -48,10 +48,14 @@ export function createFormBuilder<FM extends FieldMap>(): React.FC<
       );
     }
 
+    const formButtons = [];
+    for (const key in buttons) {
+      const { type, label } = buttons[key];
+      formButtons.push(<input type={type} name={label} key={key} />);
+    }
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
-        {fields}
-        <input type="submit" />
+        {formFields} {formButtons}
       </form>
     );
   };
