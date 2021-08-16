@@ -1,5 +1,5 @@
-import { CheckBox } from "./CheckBox";
-import { Text } from "./Text";
+import { CheckBox } from './CheckBox';
+import { Text } from './Text';
 
 const fields = {
   CheckBox,

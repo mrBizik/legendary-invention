@@ -1,7 +1,7 @@
-import React from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { FieldComponent, FieldMap } from "./field";
-import { FormSchema } from "./form.schema";
+import React from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { FieldComponent, FieldMap } from './field';
+import { FormSchema } from './form.schema';
 
 interface FormBuilderProps<FM extends FieldMap = FieldMap> {
   fieldsShema: FormSchema<FM>;
@@ -12,7 +12,7 @@ interface FormFieldsState {
   [fieldKey: string]: unknown;
 }
 
-function getFileldComponent<FM extends FieldMap = FieldMap>(
+function getFileldComponent<FM extends FieldMap>(
   type: keyof FM,
   fieldComponents: FM
 ): FieldComponent<FM> {
@@ -23,7 +23,7 @@ function getFileldComponent<FM extends FieldMap = FieldMap>(
   return fieldComponents[type];
 }
 
-export function createFormBuilder<FM extends FieldMap = FieldMap>(): React.FC<
+export function createFormBuilder<FM extends FieldMap>(): React.FC<
   FormBuilderProps<FM>
 > {
   return ({ fieldsShema, fieldComponents }) => {

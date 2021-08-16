@@ -1,5 +1,5 @@
-import React from "react";
-import { FieldProps } from "../form/field";
+import React from 'react';
+import { FieldProps } from '../form/field';
 
 export const Text: React.FC<FieldProps<string>> = ({
   name,

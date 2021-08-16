@@ -1,26 +1,26 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import fields from "./fields";
-import { createFormBuilder } from "./form/FormBuilder";
-import { FormSchema } from "./form/form.schema";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import fields from './fields';
+import { createFormBuilder } from './form/FormBuilder';
+import { FormSchema } from './form/form.schema';
 
 type Fields = typeof fields;
 
 const testFields: FormSchema<Fields> = [
   {
-    type: "CheckBox",
+    type: 'CheckBox',
     config: {
-      label: "Field 1",
-      name: "check1",
+      label: 'Field 1',
+      name: 'check1',
       value: false,
     },
   },
   {
-    type: "Text",
+    type: 'Text',
     config: {
-      label: "Field 2",
-      name: "text 1",
-      value: "false",
+      label: 'Field 2',
+      name: 'text 1',
+      value: 'false',
     },
   },
 ];
@@ -28,5 +28,5 @@ const testFields: FormSchema<Fields> = [
 const FormBuilder = createFormBuilder<Fields>();
 ReactDOM.render(
   <FormBuilder fieldsShema={testFields} fieldComponents={fields} />,
-  document.getElementById("root")
+  document.getElementById('root')
 );

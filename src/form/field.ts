@@ -1,5 +1,5 @@
-import React from "react";
-import { RefCallBack } from "react-hook-form";
+import React from 'react';
+import { RefCallBack } from 'react-hook-form';
 
 export interface FieldConfig<V = unknown> {
   label?: string;
@@ -7,18 +7,18 @@ export interface FieldConfig<V = unknown> {
   value?: V;
 }
 
-export type FieldProps<V = unknown> = FieldConfig<V> & {
+export type FieldProps<V> = FieldConfig<V> & {
   onChange: (...event: any[]) => void;
   ref: RefCallBack;
 };
 
-export interface FieldMap<T = unknown> {
-  [key: string]: React.FC<FieldProps<T>>;
+export interface FieldMap<V = unknown> {
+  [key: string]: React.FC<FieldProps<V>>;
 }
 
-type FieldValue<FMap extends FieldMap = FieldMap> =
-  FMap[keyof FMap]["defaultProps"]["value"];
+type FieldValue<FMap extends FieldMap> =
+  FMap[keyof FMap]['defaultProps']['value'];
 
-export type FieldComponent<FMap extends FieldMap = FieldMap> = React.FC<
+export type FieldComponent<FMap extends FieldMap> = React.FC<
   FieldProps<FieldValue<FMap>>
 >;
