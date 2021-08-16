@@ -19,7 +19,7 @@ const testFields: FormSchema<Fields> = {
       config: {
         label: 'Field 1',
         name: 'check1',
-        value: false,
+        value: true,
       },
     },
     {

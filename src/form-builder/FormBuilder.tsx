@@ -1,5 +1,5 @@
 import React from 'react';
-import { Control, Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Control, Controller, DefaultValues, SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonConfig, FieldComponent, FieldMap, FieldValue } from './field';
 import { FieldSchema, FormSchema } from './form.schema';
 
@@ -23,6 +23,19 @@ function getFileldComponent<FM extends FieldMap>(
   return fieldComponents[type];
 }
 
+function getDefaultValues<FM extends FieldMap>(
+  fields: FieldSchema<FM>[]
+): DefaultValues<FormFieldsState<FM>> {
+  const defaultState: DefaultValues<FormFieldsState<FM>> = {};
+  for (const {
+    config: { name, value },
+  } of fields) {
+    defaultState[name] = value as any; // TODO: fix any
+  }
+
+  return defaultState;
+}
+
 function createFields<FM extends FieldMap>(
   fields: FieldSchema<FM>[],
   control: Control<FormFieldsState<FM>>,
@@ -31,7 +44,7 @@ function createFields<FM extends FieldMap>(
   const formFields = [];
   for (const {
     type,
-    config: { name, value: defaultValue, ...other },
+    config: { name, value, ...other },
   } of fields) {
     const Field = getFileldComponent(type, fieldComponents);
     formFields.push(
@@ -61,7 +74,9 @@ export function createFormBuilder<FM extends FieldMap>(): React.FC<
   FormBuilderProps<FM>
 > {
   return ({ fieldsShema, fieldComponents, onSubmit }) => {
-    const { control, handleSubmit } = useForm<FormFieldsState<FM>>();
+    const { control, handleSubmit } = useForm<FormFieldsState<FM>>({
+      defaultValues: getDefaultValues<FM>(fieldsShema.fields),
+    });
     const formFields = createFields(
       fieldsShema.fields,
       control,
