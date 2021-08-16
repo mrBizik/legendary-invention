@@ -1,15 +1,15 @@
 import React from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { FieldComponent, FieldMap } from './field';
-import { FormSchema } from './form.schema';
+import { Control, Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { ButtonConfig, FieldComponent, FieldMap, FieldValue } from './field';
+import { FieldSchema, FormSchema } from './form.schema';
 
-interface FormBuilderProps<FM extends FieldMap = FieldMap> {
+export interface FormFieldsState<FM extends FieldMap> {
+  [fieldKey: string]: FieldValue<FM>;
+}
+interface FormBuilderProps<FM extends FieldMap> {
   fieldsShema: FormSchema<FM>;
   fieldComponents: FM;
-}
-
-interface FormFieldsState {
-  [fieldKey: string]: unknown;
+  onSubmit: SubmitHandler<FormFieldsState<FM>>;
 }
 
 function getFileldComponent<FM extends FieldMap>(
@@ -23,36 +23,51 @@ function getFileldComponent<FM extends FieldMap>(
   return fieldComponents[type];
 }
 
+function createFields<FM extends FieldMap>(
+  fields: FieldSchema<FM>[],
+  control: Control<FormFieldsState<FM>>,
+  fieldComponents: FM
+): JSX.Element[] {
+  const formFields = [];
+  for (const {
+    type,
+    config: { name, value: defaultValue, ...other },
+  } of fields) {
+    const Field = getFileldComponent(type, fieldComponents);
+    formFields.push(
+      <Controller
+        name={name}
+        key={`${name}.${type}`}
+        control={control}
+        render={({ field }) => <Field {...field} {...other} />}
+      />
+    );
+  }
+
+  return formFields;
+}
+
+function createButtons(buttons: ButtonConfig[]): JSX.Element[] {
+  const formButtons = [];
+  for (const key in buttons) {
+    const { type, label } = buttons[key];
+    formButtons.push(<input type={type} name={label} key={key} />);
+  }
+
+  return formButtons;
+}
+
 export function createFormBuilder<FM extends FieldMap>(): React.FC<
   FormBuilderProps<FM>
 > {
-  return ({ fieldsShema: { fields, buttons }, fieldComponents }) => {
-    const { control, handleSubmit } = useForm<FormFieldsState>();
-
-    const onSubmit: SubmitHandler<FormFieldsState> = (data) => {
-      console.log(data);
-    };
-    const formFields = [];
-    for (const {
-      type,
-      config: { name, value: defaultValue, ...other },
-    } of fields) {
-      const Field = getFileldComponent(type, fieldComponents);
-      formFields.push(
-        <Controller
-          name={name}
-          key={`${name}.${type}`}
-          control={control}
-          render={({ field }) => <Field {...field} {...other} />}
-        />
-      );
-    }
-
-    const formButtons = [];
-    for (const key in buttons) {
-      const { type, label } = buttons[key];
-      formButtons.push(<input type={type} name={label} key={key} />);
-    }
+  return ({ fieldsShema, fieldComponents, onSubmit }) => {
+    const { control, handleSubmit } = useForm<FormFieldsState<FM>>();
+    const formFields = createFields(
+      fieldsShema.fields,
+      control,
+      fieldComponents
+    );
+    const formButtons = createButtons(fieldsShema.buttons);
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
         {formFields} {formButtons}

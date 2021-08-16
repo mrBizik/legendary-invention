@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fields from './fields';
-import { createFormBuilder } from './form/FormBuilder';
+import { createFormBuilder, FormFieldsState } from './form/FormBuilder';
 import { FormSchema } from './form/form.schema';
+import { SubmitHandler } from 'react-hook-form';
 
 type Fields = typeof fields;
 
@@ -33,8 +34,16 @@ const testFields: FormSchema<Fields> = {
   ],
 };
 
+const onSubmit: SubmitHandler<FormFieldsState<Fields>> = (data) => {
+  console.log(data);
+};
+
 const FormBuilder = createFormBuilder<Fields>();
 ReactDOM.render(
-  <FormBuilder fieldsShema={testFields} fieldComponents={fields} />,
+  <FormBuilder
+    fieldsShema={testFields}
+    fieldComponents={fields}
+    onSubmit={onSubmit}
+  />,
   document.getElementById('root')
 );
