@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fields from './fields';
-import { createFormBuilder, FormFieldsState } from './form/FormBuilder';
-import { FormSchema } from './form/form.schema';
+import { createFormBuilder, FormFieldsState, FormSchema } from './form-builder';
 import { SubmitHandler } from 'react-hook-form';
 
 type Fields = typeof fields;
