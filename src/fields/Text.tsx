@@ -6,9 +6,8 @@ export const Text: React.FC<FieldProps<string>> = ({
   value,
   onChange,
   label,
+  ref,
 }) => {
-  const changeField = ({ currentTarget }: React.FormEvent<HTMLInputElement>) =>
-    onChange(name, currentTarget.value);
   return (
     <div>
       <label>{label}</label>
@@ -16,7 +15,8 @@ export const Text: React.FC<FieldProps<string>> = ({
         type="text"
         name={name}
         value={value}
-        onChange={changeField}
+        onChange={onChange}
+        ref={ref}
       ></input>
     </div>
   );

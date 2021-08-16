@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { FieldComponent, FieldMap } from "./field";
 import { FormSchema } from "./form.schema";
 
@@ -26,29 +27,32 @@ export function createFormBuilder<FM extends FieldMap = FieldMap>(): React.FC<
   FormBuilderProps<FM>
 > {
   return ({ fieldsShema, fieldComponents }) => {
-    const [fieldValues, setFieldValues] = useState<FormFieldsState>({});
-    const updateFieldValueHook = (name: string, value: unknown) => {
-      fieldValues[name] = value;
-      setFieldValues({ ...fieldValues });
-      console.log(fieldValues);
-    };
+    const { control, handleSubmit } = useForm<FormFieldsState>();
 
+    const onSubmit: SubmitHandler<FormFieldsState> = (data) => {
+      console.log(data);
+    };
     const fields = [];
     for (const {
       type,
       config: { name, value: defaultValue, ...other },
     } of fieldsShema) {
       const Field = getFileldComponent(type, fieldComponents);
-      const fieldProps = {
-        name,
-        value:
-          fieldValues[name] === undefined ? defaultValue : fieldValues[name],
-        ...other,
-      };
       fields.push(
-        <Field {...fieldProps} onChange={updateFieldValueHook} key={name} />
+        <Controller
+          name={name}
+          key={`${name}.${type}`}
+          control={control}
+          render={({ field }) => <Field {...field} {...other} />}
+        />
       );
     }
-    return <form>{fields}</form>;
+
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {fields}
+        <input type="submit" />
+      </form>
+    );
   };
 }

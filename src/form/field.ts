@@ -1,4 +1,5 @@
 import React from "react";
+import { RefCallBack } from "react-hook-form";
 
 export interface FieldConfig<V = unknown> {
   label?: string;
@@ -7,7 +8,8 @@ export interface FieldConfig<V = unknown> {
 }
 
 export type FieldProps<V = unknown> = FieldConfig<V> & {
-  onChange: (key: string, val: V) => void;
+  onChange: (...event: any[]) => void;
+  ref: RefCallBack;
 };
 
 export interface FieldMap<T = unknown> {
