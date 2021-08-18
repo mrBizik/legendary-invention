@@ -1,12 +1,20 @@
 import React from 'react';
-import { FieldProps } from '../form/field.description';
+import { FieldProps } from '../form-builder';
 
-export const Text: React.FC<FieldProps<string>> = ({ name, value, onChange, label }) => {
-  const changeField = ({ currentTarget }: React.FormEvent<HTMLInputElement>) => onChange(name, currentTarget.value);
+export const Text: React.FC<FieldProps<string>> = React.forwardRef<
+  HTMLInputElement,
+  FieldProps<string>
+>(({ name, onChange, label, value }, ref) => {
   return (
     <div>
       <label>{label}</label>
-      <input type="text" name={name} value={value} onChange={changeField}></input>
+      <input
+        type="text"
+        name={name}
+        onChange={onChange}
+        ref={ref}
+        defaultValue={value}
+      ></input>
     </div>
-  )
-};
+  );
+});
